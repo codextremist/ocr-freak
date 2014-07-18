@@ -39,7 +39,7 @@ class OCRProcessor
   private
 
   def file_basename(file)
-    file.match(BASENAME_PATTERN).captures.first
+    File.basename(file, '.pdf')
   end
 
   def generate_tmp_files_for(file)
@@ -48,7 +48,7 @@ class OCRProcessor
     rmagick.each_with_index do |page, index|
       if index > 1
         page.alpha = Magick::DeactivateAlphaChannel
-        page.write(File.join(OCRFreak::OUTPUT_PATH,"#{index}_#{file_basename(file)}.tiff")){|f| f.depth = 8 }
+        page.write(File.join(OCRFreak::INPUT_PATH,"#{index}_#{file_basename(file)}.tiff")){|f| f.depth = 8 }
       end
     end
     Dir.glob(TMP_FILES)

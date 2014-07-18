@@ -9,6 +9,6 @@ class PDFCoverExtractor
      file = Dir.glob(file_pattern).first
      image = Magick::Image.read(file).first
      image = image.resize_to_fit(461,614)
-     image.write("#{output_file}_capa_optimized.jpg")
+     image.write("#{output_file}_capa_resized.jpg")
   end
 end
