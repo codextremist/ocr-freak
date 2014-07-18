@@ -10,8 +10,9 @@ require 'debugger'
 
 module OCRFreak
   
-  DATA_PATH = File.join(File.dirname(__FILE__),"data")
- 
+  INPUT_PATH = File.join(File.dirname(__FILE__),"input")
+  OUTPUT_PATH = File.join(File.dirname(__FILE__),"output")
+
   autoload :OCRProcessor, 'ocr_processor'
   autoload :PDFCoverExtractor, 'pdf_cover_extractor'
   autoload :PDFOptimizer, 'pdf_optimizer'
@@ -28,7 +29,7 @@ module OCRFreak
   end
 
   def self.inputs
-    Dir.glob(File.join("data","*.pdf"))
+    Dir.glob(File.join(INPUT_PATH, "*.pdf"))
   end
 
 end

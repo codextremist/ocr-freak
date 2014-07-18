@@ -1,7 +1,7 @@
 class OCRProcessor
     
   BASENAME_PATTERN = /\/?(\w*).pdf/
-  TMP_FILES = File.join(OCRFreak::DATA_PATH, "*.tiff")
+  TMP_FILES = File.join(OCRFreak::INPUT_PATH, "*.tiff")
 
   def initialize
     @engine = Tesseract::Engine.new do |engine|
@@ -11,7 +11,7 @@ class OCRProcessor
   end
 
   def store_ocr_data(file)
-    ocr_file = "#{OCRFreak::DATA_PATH}/#{file_basename(file)}_ocr.txt"   
+    ocr_file = "#{OCRFreak::OUTPUT_PATH}/#{file_basename(file)}_ocr.txt"   
     File.open(ocr_file, "wb") do |f|
       f.puts process(file)
     end
@@ -48,7 +48,7 @@ class OCRProcessor
     rmagick.each_with_index do |page, index|
       if index > 1
         page.alpha = Magick::DeactivateAlphaChannel
-        page.write(File.join(OCRFreak::DATA_PATH,"#{index}_#{file_basename(file)}.tiff")){|f| f.depth = 8 }
+        page.write(File.join(OCRFreak::OUTPUT_PATH,"#{index}_#{file_basename(file)}.tiff")){|f| f.depth = 8 }
       end
     end
     Dir.glob(TMP_FILES)
